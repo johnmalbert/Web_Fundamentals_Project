@@ -9,7 +9,8 @@
         content="This game will challenge your basic math skills, and ensure you keep testing your brain">
     <link rel="stylesheet" style="text/html" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
+    <script src="script.js"></script>
+    <!-- <script>
         $(document).ready(function(){
             //function to run when start is clicked:
             $('#start').click(function(){
@@ -33,18 +34,19 @@
                     }else{
                         alert("Time's up, nice work! Your final score was " + score);
                         $('#start').show();
+                        $('#correct').hide();
+                        $('#wrong').hide();
 
                     }
                 }
                 function game_play(){
                     $('#score').html(score);
-                    //$('#num').val("");
                     var x = Math.floor(100 * Math.random(100));                        
                     var y = Math.floor(100 * Math.random(100));                        
                     var temp = x;
                     var del = Math.floor(4 * Math.random(1));
                     var answer = 0;
-                    var score_value;
+                    var score_value = 0;
                     if(x < y){//put bigger number on top
                         x = y;
                         y = temp;
@@ -62,37 +64,36 @@
                     }else if(del == 2){
                         $('#delimiter').html("x");
                         answer = x * y;
-                        score_value = 5;
+                        score_value = 10;
                     }else{
                         $('#delimiter').html('%');
                         answer = x % y;
-                        score_value = 10;
+                        score_value = 5;
                     }
                     console.log("answer: " + answer);
+
                     //get the user input:
                     $('#enter').click(function(){
                         user_answer = $('#num').val();
                         console.log("user answer: " + user_answer);
 
                         if(user_answer == answer){
-                            console.log("correct!");
                             score += score_value;
                             $('#wrong').hide();
                             $('#correct').show();
                         }else{
-                            console.log("wrong");
                             $('#wrong').show();
                             $('#correct').hide();
                         }
                         //$('#num').val("");
                         game_play();
                     })
-                    
+                    $(document).keydown
                 }//end of game play function.
             })//end of game (start clicked)
         })//end of document.ready
 
-    </script>
+    </script> -->
 </head>
 
 <body>
@@ -102,8 +103,8 @@
             <ul>
                 <li>+</li>
                 <li>-</li>
-                <li>x</li>
                 <li>%</li>
+                <li>x</li>
             </ul>
             <ul id="scoring">
                 <li>1 Point</li>
@@ -116,12 +117,12 @@
             <h4>The Numbers Game</h4>
             <div id="playingBoard">                
                 <div id=topNum>
-                    <h3 id="x_val">99</h3>
+                    <h3 id="x_val"></h3>
                 </div>
                 <div id=bottomNum>
-                    <h3 id = "delimiter">+</h3><h3 id = "y_val">99</h3>
+                    <h3 id = "delimiter">+</h3><h3 id = "y_val"></h3>
                 </div>
-                <input type="text" name = "num" id = "num"></input>
+                <input type="text" name = "num" id = "num" onfocus="this.value=''"></input>
                 <button id = "enter">Enter</button>
             </div>
             <p>It's the numbers game! Brush up on that basic math, you're going to need it. Click start to play.</p>

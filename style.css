@@ -8,6 +8,7 @@
     width: 750px;
     min-height: 300px;
     margin: auto;
+    margin-top: 10px;
     padding: 20px;
     background: linear-gradient(to right, #cbe8ff 0%, #d0f5f6 50%, #e2f6fa 100%);
 }
@@ -65,7 +66,7 @@ h5 {
     text-align: right;
     margin-right: 25px;
     display: inline-block;
-    width: 20px;
+    width: 28px;
 }
 #x_val{
     margin: 0px;
