@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Numbers Game</title>
+    <meta name="description"
+        content="This game will challenge your basic math skills, and ensure you keep testing your brain">
+    <link rel="stylesheet" style="text/html" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            //function to run when start is clicked:
+            $('#start').click(function(){
+                //start the timer 
+                $('#start').hide();
+                var score = 0;
+                game_play();               
+                var timer; 
+                var count = 60;
+                var user_answer = 0;
+                
+
+                $('#clock').text(count);//set clock to 60 seconds
+                timer = setTimeout(update, 1000);//don't fully understand this one yet...
+                // $('#start').html('#stop');   come back to this - so that you can't click start x1
+                function update(){
+                    if(count > 0)
+                    {
+                        $('#clock').text(--count);
+                        timer = setTimeout(update, 1000);
+                    }else{
+                        alert("Time's up, nice work! Your final score was " + score);
+                        $('#start').show();
+
+                    }
+                }
+                function game_play(){
+                    $('#score').html(score);
+                    //$('#num').val("");
+                    var x = Math.floor(100 * Math.random(100));                        
+                    var y = Math.floor(100 * Math.random(100));                        
+                    var temp = x;
+                    var del = Math.floor(4 * Math.random(1));
+                    var answer = 0;
+                    var score_value;
+                    if(x < y){//put bigger number on top
+                        x = y;
+                        y = temp;
+                    }
+                    $('#x_val').html(x);
+                    $('#y_val').html(y);
+                    if(del == 0){
+                        $('#delimiter').html("+");
+                        answer = x + y;
+                        score_value = 1;
+                    }else if(del == 1){
+                        $('#delimiter').html("-");
+                        answer = x - y;
+                        score_value = 2;
+                    }else if(del == 2){
+                        $('#delimiter').html("x");
+                        answer = x * y;
+                        score_value = 5;
+                    }else{
+                        $('#delimiter').html('%');
+                        answer = x % y;
+                        score_value = 10;
+                    }
+                    console.log("answer: " + answer);
+                    //get the user input:
+                    $('#enter').click(function(){
+                        user_answer = $('#num').val();
+                        console.log("user answer: " + user_answer);
+
+                        if(user_answer == answer){
+                            console.log("correct!");
+                            score += score_value;
+                            $('#wrong').hide();
+                            $('#correct').show();
+                        }else{
+                            console.log("wrong");
+                            $('#wrong').show();
+                            $('#correct').hide();
+                        }
+                        //$('#num').val("");
+                        game_play();
+                    })
+                    
+                }//end of game play function.
+            })//end of game (start clicked)
+        })//end of document.ready
+
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <div id=legend>
+            <h5>Scoring</h5>
+            <ul>
+                <li>+</li>
+                <li>-</li>
+                <li>x</li>
+                <li>%</li>
+            </ul>
+            <ul id="scoring">
+                <li>1 Point</li>
+                <li>2 Point</li>
+                <li>5 Point</li>
+                <li>10 Point</li>
+            </ul>
+        </div>
+        <main>
+            <h4>The Numbers Game</h4>
+            <div id="playingBoard">                
+                <div id=topNum>
+                    <h3 id="x_val">99</h3>
+                </div>
+                <div id=bottomNum>
+                    <h3 id = "delimiter">+</h3><h3 id = "y_val">99</h3>
+                </div>
+                <input type="text" name = "num" id = "num"></input>
+                <button id = "enter">Enter</button>
+            </div>
+            <p>It's the numbers game! Brush up on that basic math, you're going to need it. Click start to play.</p>
+            <button id = "start">START</button>
+            <button id = "correct" style="display: none";>Correct!</button>
+            <button id = "wrong" style="display: none";>Wrong!</button>
+        </main>
+        <div id="scoreboard">
+            <h5>TIMER</h5>
+            <div id="clock">1:00</div>
+
+            <h5>SCOREBOARD</h5>
+            <div id="score">100</div>
+        </div>
+    </div>
+</body>
+
+</html>
